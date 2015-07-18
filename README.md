@@ -34,3 +34,8 @@ Running
 --------------
 You run the bot by executing this command in a terminal
     node kraxbot.js
+    
+Usage
+--------------
+Invite the bot to any chatroom or group chat and it will auto-join.
+Avaible commands and usage of them can be found in the commands file.
