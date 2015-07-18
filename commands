@@ -1,0 +1,38 @@
+    !ver
+Shows version info.
+
+    !id
+Prints your ID.
+
+    !lenny
+Prints a random lenny face.
+
+    !random
+Prints a random person from the current chatroom.
+(May be unstable in multi-user chats)
+
+    !games
+Prints all your games with 100 or more hours in
+
+    !store (game)
+Searches the store for the entered game
+    Example
+!store cave story
+
+    !nameof
+Searches Steam for a name to the given ID
+    Example
+!nameof 440
+
+    !play
+Change game the bot should play
+    Example
+!play 440
+
+!name
+    Prints your name and game if any
+    
+!leave
+    Leaves current chat
+    
+This file will be updated as more commands are added
