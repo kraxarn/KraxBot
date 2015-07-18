@@ -235,29 +235,6 @@ if (message == '!games') {
     });
 }
 
-if (message == '!req') {
-
-	client.games(chatter, function(err, games){
-        // console.log(util.inspect(games, false, 4, true));
-        var gamesNum = games.length.toString();
-        if (games.length < 6) { statusGames = ' - FAIL'; } else { statusGames = ' - Ok!'; }
-        bot.sendMessage(source, 'You have ' + gamesNum + ' games' + statusGames, type.ChatMsg);
-    });
-
-    client.user(chatter, function(err, user){
-    	memberSinceYear = user.memberSince.substr(user.memberSince.length - 4);
-    	if (memberSinceYear > 2013) { statusMember = ' - FAIL'; } else { statusMember = ' - Ok!'; }
-        bot.sendMessage(source, 'You have been a member since ' + user.memberSince + statusMember, type.ChatMsg);
-        
-        if (user.privacyState == 'public') { statusPrivacy = ' - Ok!'; } else { statusPrivacy = ' - FAIL'; }
-        bot.sendMessage(source, 'Your profile is ' + user.privacyState + statusPrivacy, type.ChatMsg);
-
-        if (user.groups.group[0].groupName) { statusGroup = ' - Ok!'; } else { statusGroup = ' - FAIL'; }
-        bot.sendMessage(source, 'Your primary group is ' + user.groups.group[0].groupName + statusGroup, type.ChatMsg);
-    });
-
-}
-
 if (message.startsWith("!store")) {
 	var term = message.substring(message.indexOf("!store")+7, message.length);
 	console.log('[D] Search word is: ' + term);
