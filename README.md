@@ -24,6 +24,10 @@ fs util ent request
 **Additional ones:**
 steam cleverbot-node steam-store steam-server-status steam-community
 
+Steam 0.6.8 is required.
+Older and newer versions aren't supported at this time.
+The main bot will get a port to the newest version first, followed by this one!
+
 Configuration
 --------------
 Open the file kraxbot.js and the first lines will be for configuration.
