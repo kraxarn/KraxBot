@@ -7,6 +7,10 @@ This is based off version 1.0 of DASH-E.
 Features have been added and changed up til the most recent release.
 This will **not** be updated as often.
 
+Pre-built executables
+--------------
+On the way!
+
 Installation
 --------------
 Installing is easy, just download it and go!
