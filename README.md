@@ -1,5 +1,7 @@
-Hello and welcome to the very first public version of KraxBot!
+Hello and welcome to the public version of KraxBot!
 ==============
+
+#### Warning! The bot is being recreated! The current code may be incomplete and unstable.
 
 About
 --------------
