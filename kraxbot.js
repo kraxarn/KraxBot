@@ -20,13 +20,15 @@ var settings;
 
 console.log('[S] Successfully loaded KraxBot ' + ver);
 
-fs.readFile("./settings.json", {encoding: "utf8"}, function (err, data) {
+fs.readFileSync("./settings.json", {encoding: "utf8"}, function (err, data) {
 	if (err) {
 		console.log('[E] Error reading setings file: ' + err);
 	} else {
 		settings = JSON.parse(data);
 	}
 });
+
+// TODO: Add proper check for done reading
 
 // TODO: Change all references to settings.info.version
 var ver = settings.info.version;
