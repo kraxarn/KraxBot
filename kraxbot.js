@@ -14,11 +14,9 @@ if (typeof String.prototype.startsWith != 'function') {
 if (fs.existsSync('servers')) {
 	Steam.servers = JSON.parse(fs.readFileSync('servers'));
 }
-
-var ver = '0.0.1 26/5-2016';
 var timeout = 1;
 var bot = new Steam.SteamClient();
-var settings = "";
+var settings;
 
 console.log('[S] Successfully loaded KraxBot ' + ver);
 
@@ -30,6 +28,9 @@ fs.readFile("./settings.json", {encoding: "utf8"}, function (err, data) {
 	}
 });
 
+// TODO: Change all references to settings.info.version
+var ver = settings.info.version;
+
 bot.logOn({
 	accountName: settings.userInfo.username,
 	password: settings.userInfo.password
@@ -40,8 +41,10 @@ bot.logOn({
 bot.on('loggedOn', function() {
 	console.log('[S] Logged in!');
 	bot.setPersonaState(Steam.EPersonaState.Online);
-	// bot.joinChat('000');
-	// bot.gamesPlayed(['221410']);
+	// TODO: Loop through and join all
+	bot.joinChat(settings.chats[0]);
+	// TODO: Check if there's an ID
+	bot.gamesPlayed([settings.login.playGame]);
 });
 
 bot.on('loggedOff', function() {
