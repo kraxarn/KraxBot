@@ -3,10 +3,11 @@
 	"description":	"KraxBot Steam Bot: Open Source",
 	"version":		"0.0.1",
 	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/KraXarN/KraxBot.git"
+		"type":	"git",
+		"url":	"git+https://github.com/KraXarN/KraxBot.git"
 	},
 	"dependencies": {
-		"steam": "0.6.8"
+		"steam": "0.6.8",
+		"request": "2.72.0"
 	}
 }

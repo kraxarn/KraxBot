@@ -23,6 +23,8 @@ var bot = new Steam.SteamClient();
 
 console.log('[S] Successfully loaded KraxBot ' + ver);
 
+
+
 bot.logOn({
 	accountName: 'shadowsfatebot',
 	password: 'Syndicate1766',
@@ -321,7 +323,9 @@ setInterval(function(){
 	timeout++;
 }, 1000);
 
+/* Safety first
 process.on('uncaughtException', function(err) {
 	console.log('[E] Caught exception: ' + err);
 	bot.sendMessage('76561198024704964', 'Caught exception: ' + err, Steam.EChatEntryType.ChatMsg);
 });
+*/
