@@ -1,8 +1,8 @@
 var fs = require('fs');
 var Steam = require('steam');
-//require('steam-groups')(Steam);
+// require('steam-groups')(Steam);
 var util = require('util');
-//var ent = require('ent');
+// var ent = require('ent');
 var request = require('request');
 
 if (typeof String.prototype.startsWith != 'function') {
