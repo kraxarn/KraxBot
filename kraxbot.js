@@ -28,7 +28,7 @@ console.log('[S] Successfully loaded KraxBot ' + ver);
 bot.logOn({
 	accountName: 'shadowsfatebot',
 	password: 'Syndicate1766',
-	// shaSentryfile: fs.readFileSync('sentryfile3')
+	// shaSentryfile: fs.readFileSync('sentryfile')
 });
 
 bot.on('loggedOn', function() {
