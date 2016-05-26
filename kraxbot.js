@@ -16,35 +16,41 @@ if (fs.existsSync('servers')) {
 }
 
 var ver = '0.0.1 26/5-2016';
-
 var timeout = 1;
-
 var bot = new Steam.SteamClient();
+var settings = "";
 
 console.log('[S] Successfully loaded KraxBot ' + ver);
 
-
+fs.readFile("./settings.json", {encoding: "utf8"}, function (err, data) {
+	if (err) {
+		console.log('[E] Error reading setings file: ' + err);
+	} else {
+		settings = JSON.parse(data);
+	}
+});
 
 bot.logOn({
-	accountName: 'shadowsfatebot',
-	password: 'Syndicate1766',
+	accountName: settings.userInfo.username,
+	password: settings.userInfo.password
+	// TODO: Add proper support for Steam Guard
 	// shaSentryfile: fs.readFileSync('sentryfile')
 });
 
 bot.on('loggedOn', function() {
 	console.log('[S] Logged in!');
 	bot.setPersonaState(Steam.EPersonaState.Online);
-	bot.joinChat('103582791438721643');
-	bot.gamesPlayed(['221410']);
+	// bot.joinChat('000');
+	// bot.gamesPlayed(['221410']);
 });
 
 bot.on('loggedOff', function() {
 	console.log('[S] Logged out!');
 	bot.logOff();
 	bot.logOn({
-		accountName: 'shadowsfatebot',
-		password: 'Syndicate1766',
-		shaSentryfile: fs.readFileSync('sentryfile')
+		accountName: settings.userInfo.username,
+		password: settings.userInfo.password,
+		// shaSentryfile: fs.readFileSync('sentryfile')
 	});
 });
 
@@ -99,11 +105,11 @@ bot.on('chatStateChange', function(status, chatter, chatRoomID) {
 	var name = bot.users[chatter].playerName;
 
 	switch(status) {
-		case 1: msg = 'Welcome '; break; // Join
-		case 2: msg = 'Good bye '; break; // Leave
-		case 4: msg = 'R.I.P. '; break; // DC
-		case 8: msg = 'Rekt '; break; // Kick
-		case 16: msg = 'Shrekt '; break; // Ban
+		case 1: msg = 'Welcome '; break;	// Join
+		case 2: msg = 'Good bye '; break;	// Leave
+		case 4: msg = 'R.I.P. '; break;		// DC
+		case 8: msg = 'Rekt '; break;		// Kick
+		case 16: msg = 'Shrekt '; break;	// Ban
 		case 4096: msg = 'Entered Voice Chat: '; break;
 		case 8192: msg = 'Left Voice Chat: '; break;
 		default: msg = 'Error (' + status + ') - '; break;
