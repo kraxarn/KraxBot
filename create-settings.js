@@ -14,7 +14,12 @@ settings.login = {
 }
 
 settings.info = {
+	name: "KraxBot",
 	version: "1.0"
+}
+
+settings.owner = {
+	id: "0"
 }
 
 settings.chats = [];

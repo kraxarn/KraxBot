@@ -15,6 +15,9 @@ if (fs.existsSync('servers')) {
 	Steam.servers = JSON.parse(fs.readFileSync('servers'));
 }
 var timeout = 1;
+var lastTime;
+var lastMsg;
+
 var bot = new Steam.SteamClient();
 
 var settings = JSON.parse(fs.readFileSync("./settings.json", "utf8"));
@@ -29,10 +32,6 @@ fs.readFileSync("./settings.json", {encoding: "utf8"}, function (err, data) {
 	}
 });
 */
-
-// TODO: Add proper check for done reading
-
-console.log(settings);
 
 // TODO: Change all references to settings.info.version
 var ver = settings.info.version;
@@ -203,7 +202,7 @@ bot.on('chatMsg', function(source, message, type, chatter) {
 		bot.sendMessage(source, "This chat's ID is: " + source, type.ChatMsg);
 	}
 
-// REMAKE! Port new one from DASH-E
+// TODO: Port new one from DASH-E
 
 if (message == '!random') {
 	if (perm == 8 || perm == 2 || perm == 1 || chatter == '76561198024704964') {
@@ -251,7 +250,7 @@ if (message.startsWith("!play ")) {
 	}
 }
 
-// REMAKE! Allow reading rules from file instead
+// TODO: Allow reading rules from file instead
 
 if (message == '!rules') {
 	bot.sendMessage(source, "Default rules: \n1. No begging for stuff \n2. No spamming \n3. Use common sense \n4. The decisions of mods and admins are final \n5. Don't spam the bot's commands \nFailing to follow these rules result in kick/ban!", type.ChatMsg);
@@ -298,7 +297,7 @@ if (message == '!updated') {
 	}
 }
 
-// REAMKE! Remove?
+// TODO: Remove?
 
 if (message.startsWith("!add ")) {
 	if (chatter == '76561198024704964' || chatter == '76561198024917234') {
@@ -315,7 +314,7 @@ lastTime = timeout;
 
 });
 
-// REMAKE! Remove?
+// TODO: Remove?
 
 function GroupName(ID, callback) {
 	var xml = " http://steamcommunity.com/gid/" + ID + "/memberslistxml?xml=1";
@@ -343,6 +342,5 @@ setInterval(function(){
 /* Safety first
 process.on('uncaughtException', function(err) {
 	console.log('[E] Caught exception: ' + err);
-	bot.sendMessage('76561198024704964', 'Caught exception: ' + err, Steam.EChatEntryType.ChatMsg);
 });
 */
