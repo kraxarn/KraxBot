@@ -20,18 +20,9 @@ var lastMsg;
 
 var bot = new Steam.SteamClient();
 
+// TODO: Create settings file if there is none
+// TODO: Check for invalid / default settings
 var settings = JSON.parse(fs.readFileSync("./settings.json", "utf8"));
-
-/*
-fs.readFileSync("./settings.json", {encoding: "utf8"}, function (err, data) {
-	if (err) {
-		console.log('[E] Error reading settings file: ' + err);
-	} else {
-		console.log('[S] Done reading settings file');
-		settings = JSON.parse(data);
-	}
-});
-*/
 
 // TODO: Change all references to settings.info.version
 var ver = settings.info.version;
@@ -107,7 +98,6 @@ bot.on('group', function(groupID, relationship) {
 	console.log("[S] Group event for " + groupID + " type " + relationship);
 	if (relationship == Steam.EClanRelationship.Invited) {
 		console.log("[S] Joined group " + groupID);
-		bot.sendMessage('76561198024704964', 'Pending group invite for ' + groupID, Steam.EChatEntryType.ChatMsg);
 	}
 });
 
@@ -137,8 +127,8 @@ bot.on('friendMsg', function(chatter, message, type) {
 		try {
 			var name = bot.users[chatter].playerName;
 		} catch(err) {
-			console.log('[E] Error gettng name: ' + err);
-			var name = Unknown;
+			console.log('[E] Error getting name: ' + err);
+			var name = "Unknown";
 		}
 		console.log('[F] ' + name + ': ' + message);
 	}
@@ -163,7 +153,7 @@ bot.on('chatMsg', function(source, message, type, chatter) {
 	console.log('[C] ' + name + ' [' + message.length + ']: ' + message);
 
 	if (message == lastMsg && chatter == lastUsr && source == lastRoom) {
-		if (perm == 8 || perm == 2 || perm == 1 || chatter == '76561198024704964') {
+		if (perm == 8 || perm == 2 || perm == 1 || chatter == settings.owner.id) {
 			console.log('[S] ' + name + ' spammed, but not kicked');
 		} else {
 			bot.sendMessage(source, "Please " + name + ", don't spam (duplicate message)" , type.ChatMsg);
@@ -172,7 +162,7 @@ bot.on('chatMsg', function(source, message, type, chatter) {
 	}
 
 	if (message.length > 400) {
-		if (perm == 8 || perm == 2 || perm == 1 || chatter == '76561198024704964') {
+		if (perm == 8 || perm == 2 || perm == 1 || chatter == settings.owner.id) {
 			console.log('[S] ' + name + ' spammed, but not kicked');
 		} else {
 			bot.sendMessage(source, "Please " + name + ", don't spam (message too long)" , type.ChatMsg);
@@ -182,7 +172,7 @@ bot.on('chatMsg', function(source, message, type, chatter) {
 	}
 
 	if (lastTime == timeout && message && chatter == lastUsr) {
-		if (perm == 8 || perm == 2 || perm == 1 || chatter == '76561198024704964') {
+		if (perm == 8 || perm == 2 || perm == 1 || chatter == settings.owner.id) {
 			console.log('[S] ' + name + ' spammed, but not kicked');
 		} else {
 			bot.sendMessage(source, "Please " + name + ", don't spam (sending messages too fast)" , type.ChatMsg);
@@ -191,7 +181,7 @@ bot.on('chatMsg', function(source, message, type, chatter) {
 	}
 
 	if (message == '!ver') {
-		bot.sendMessage(source, 'SF Bot ' + ver + ', Based on KraxBot by KraXarN', type.ChatMsg);
+		bot.sendMessage(source, settings.info.name + ' ' + ver + ', Based on KraxBot by KraXarN', type.ChatMsg);
 	}
 
 	if (message == '!id') {
@@ -205,20 +195,18 @@ bot.on('chatMsg', function(source, message, type, chatter) {
 // TODO: Port new one from DASH-E
 
 if (message == '!random') {
-	if (perm == 8 || perm == 2 || perm == 1 || chatter == '76561198024704964') {
+	if (perm == 8 || perm == 2 || perm == 1 || chatter == settings.owner.id) {
 		var users = bot.chatRooms[source];
 		var ranPlayer = Math.floor(Math.random() * Object.keys(users).length);
 		var winner = bot.users[Object.keys(users)[ranPlayer]].playerName;
 		bot.sendMessage(source, 'The winner is ' + winner, type.ChatMsg);
 		console.log('[S] Winner is ' + winner + ' (' + Object.keys(users)[ranPlayer] + ')');
 		timeout_random = timeout + CR[source].RandomDelay;
-	} else {
-		bot.sendMessage(source, 'This command is disabled for ' + (timeout_random - timeout) + ' more seconds', type.ChatMsg);
 	}
 }
 
 if (message == '!timeout') {
-	if (chatter == '76561198024704964') {
+	if (chatter == settings.owner.id) {
 		bot.sendMessage(source, 'Current timeout value is: ' + timeout, type.ChatMsg);
 	} else {
 		bot.sendMessage(source, 'This comamnd is for debugging purposes only and should only be executed by Krax.', type.ChatMsg);
@@ -243,10 +231,8 @@ if (message == '!users') {
 }
 
 if (message.startsWith("!play ")) {
-	if (chatter == '76561198024704964' || chatter == '76561198024917234') {
+	if (chatter == settings.owner.id) {
 		bot.gamesPlayed([Number(message.substring(message.indexOf("!play")+6, message.length))]);
-	} else {
-		bot.sendMessage(source, "This command is for Krax only! ( ° ͜ʖ͡°)╭∩╮", type.ChatMsg);
 	}
 }
 
@@ -257,7 +243,7 @@ if (message == '!rules') {
 }
 
 if (message.startsWith("!setname ")) {
-	if (chatter == '76561198024704964' || chatter == '76561198024917234') {
+	if (chatter == settings.owner.id) {
 		bot.setPersonaName(message.substring(message.indexOf("!setname")+8, message.length));
 	} else {
 		bot.sendMessage(source, "This command is for Krax only! ( ° ͜ʖ͡°)╭∩╮", type.ChatMsg);
@@ -265,7 +251,7 @@ if (message.startsWith("!setname ")) {
 }
 
 if (message.startsWith("!kick ")) {
-	if (perm == 8 || perm == 2 || perm == 1 || chatter == '76561198024704964') {
+	if (perm == 8 || perm == 2 || perm == 1 || chatter == settings.owner.id) {
 		var keyword = message.substring(message.indexOf("!kick")+6, message.length).toLowerCase();
 		var results = 0;
 
@@ -300,7 +286,7 @@ if (message == '!updated') {
 // TODO: Remove?
 
 if (message.startsWith("!add ")) {
-	if (chatter == '76561198024704964' || chatter == '76561198024917234') {
+	if (chatter == settings.owner.id) {
 		bot.addFriend(message.substring(message.indexOf("!add")+4, message.length));
 		bot.sendMessage(source, 'Added!', type.ChatMsg);
 	} else {
