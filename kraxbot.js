@@ -1,8 +1,8 @@
 var fs = require('fs');
 var Steam = require('steam');
-require('steam-groups')(Steam);
+//require('steam-groups')(Steam);
 var util = require('util');
-var ent = require('ent');
+//var ent = require('ent');
 var request = require('request');
 
 if (typeof String.prototype.startsWith != 'function') {
@@ -11,12 +11,11 @@ if (typeof String.prototype.startsWith != 'function') {
 	};
 }
 
-// if we've saved a server list, use it
 if (fs.existsSync('servers')) {
 	Steam.servers = JSON.parse(fs.readFileSync('servers'));
 }
 
-var ver = '0.1 25/5-2016';
+var ver = '0.0.1 26/5-2016';
 
 var timeout = 1;
 
@@ -296,6 +295,8 @@ lastUsr = chatter;
 lastTime = timeout;
 
 });
+
+// REMAKE! Remove?
 
 function GroupName(ID, callback) {
 	var xml = " http://steamcommunity.com/gid/" + ID + "/memberslistxml?xml=1";
