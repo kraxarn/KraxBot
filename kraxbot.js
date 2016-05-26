@@ -16,26 +16,32 @@ if (fs.existsSync('servers')) {
 }
 var timeout = 1;
 var bot = new Steam.SteamClient();
-var settings;
 
-console.log('[S] Successfully loaded KraxBot ' + ver);
+var settings = JSON.parse(fs.readFileSync("./settings.json", "utf8"));
 
+/*
 fs.readFileSync("./settings.json", {encoding: "utf8"}, function (err, data) {
 	if (err) {
-		console.log('[E] Error reading setings file: ' + err);
+		console.log('[E] Error reading settings file: ' + err);
 	} else {
+		console.log('[S] Done reading settings file');
 		settings = JSON.parse(data);
 	}
 });
+*/
 
 // TODO: Add proper check for done reading
+
+console.log(settings);
 
 // TODO: Change all references to settings.info.version
 var ver = settings.info.version;
 
+console.log('[S] Successfully loaded KraxBot ' + ver);
+
 bot.logOn({
-	accountName: settings.userInfo.username,
-	password: settings.userInfo.password
+	accountName: settings.userinfo.username,
+	password: settings.userinfo.password
 	// TODO: Add proper support for Steam Guard
 	// shaSentryfile: fs.readFileSync('sentryfile')
 });
@@ -53,8 +59,8 @@ bot.on('loggedOff', function() {
 	console.log('[S] Logged out!');
 	bot.logOff();
 	bot.logOn({
-		accountName: settings.userInfo.username,
-		password: settings.userInfo.password,
+		accountName: settings.userinfo.username,
+		password: settings.userinfo.password,
 		// shaSentryfile: fs.readFileSync('sentryfile')
 	});
 });
