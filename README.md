@@ -1,7 +1,7 @@
 Welcome to the public version of KraxBot!
 ==============
 
-#### Warning! The bot is currently in beta, so please report any bugs!
+#### Warning! This project will be put on hold until DASH-E 3.0 is complete and then this will be based off that!
 
 About
 --------------
