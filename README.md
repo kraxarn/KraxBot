@@ -16,8 +16,7 @@ Running from source
 --------------
 Make sure you have Node 0.12.x installed.
 
-Node can be installed on Debian based distros (Ubuntu, Mint etc.) with
-    apt-get install nodejs
+Node can be installed on Debian based distros (Ubuntu, Mint etc.) with `apt-get install nodejs`
 
 Also install these modules to Node.
 
@@ -35,8 +34,7 @@ Run create-settings.js and edit settings.json
 
 Running
 --------------
-You run the bot by executing this command in a terminal
-    node kraxbot.js
+You run the bot by executing this command in a terminal `node kraxbot.js`
 
 Usage
 --------------
