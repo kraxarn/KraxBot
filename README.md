@@ -1,3 +1,5 @@
+# WARNING: [This project has been moved to here and remade from scratch.](https://github.com/KraXarN/KraxbotOSS) Please use that instead!
+
 Welcome to the public version of KraxBot!
 ==============
 
